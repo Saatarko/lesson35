@@ -6,6 +6,11 @@ import numpy as np
 def worker(array, start, end, result, index):
     result[index] = np.sum(array[start:end])
 
+    """array — массив, в котором мы будем считать сумму.
+    start, end — индексы начала и конца части массива для текущего потока.
+    result — общий список, где каждый процесс записывает свою сумму.
+    index — индекс в списке result, куда процесс записывает свою сумму."""
+
 
 if __name__ == '__main__':
     array = np.random.rand(10000000)
@@ -15,6 +20,8 @@ if __name__ == '__main__':
     chunk_size = len(array) // num_processes
 
     start_time = time.time()
+
+    # Цикл создает и запускает процессы
 
     for i in range(num_processes):
         start = i * chunk_size
@@ -29,5 +36,5 @@ if __name__ == '__main__':
     total_sum = sum(result)
     end_time = time.time()
 
-    print(f"Total sum: {total_sum}")
-    print(f"Time taken: {end_time - start_time} seconds")
+    print(f"Мультипроцессовый вариант. Итоговая сумма: {total_sum}")
+    print(f"Мультипроцессовый вариант занял времени: {end_time - start_time} секунд")
